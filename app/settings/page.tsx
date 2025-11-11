@@ -4,9 +4,37 @@ import { useState } from "react"
 import { Bell, Lock, Eye, Palette, LogOut } from "lucide-react"
 import Sidebar from "@/components/home/sidebar"
 import MobileNav from "@/components/home/mobile-nav"
+import { useTheme } from "next-themes"
+
+// --- 1. DEFINISI TIPE UNTUK TYPE-SAFETY ---
+type NotificationSettings = {
+  email: boolean;
+  push: boolean;
+  mentions: boolean;
+  comments: boolean;
+}
+
+type PrivacySettings = {
+  isPublic: boolean;
+  allowMessages: boolean;
+  showActivity: boolean;
+}
+
+interface AppSettings {
+    notifications: NotificationSettings;
+    privacy: PrivacySettings;
+    theme: string;
+}
+
+// Tipe untuk kategori yang bisa di-toggle (mengecualikan 'theme' yang berupa string)
+type ToggleableCategory = 'notifications' | 'privacy';
+type AllSettingKeys = keyof NotificationSettings | keyof PrivacySettings;
 
 export default function SettingsPage() {
-  const [settings, setSettings] = useState({
+
+  const { theme, setTheme } = useTheme()
+  // Menggunakan interface AppSettings
+  const [settings, setSettings] = useState<AppSettings>({
     notifications: {
       email: true,
       push: true,
@@ -18,17 +46,23 @@ export default function SettingsPage() {
       allowMessages: true,
       showActivity: true,
     },
-    theme: "dark",
-  })
+  } as AppSettings)
 
-  const handleToggle = (category: string, setting: string) => {
-    setSettings(prev => ({
-      ...prev,
-      [category]: {
-        ...prev[category as keyof typeof prev],\
-        [setting]: !prev[category as keyof typeof prev][setting as keyof typeof prev[category as keyof typeof prev]]
-      }
-    }));
+  // 2. PERBAIKAN FUNGSI handleToggle
+  const handleToggle = (category: ToggleableCategory, setting: AllSettingKeys) => {
+    setSettings(prev => {
+        // Assert categorySettings type agar TypeScript tahu ini adalah objek
+        const categorySettings = prev[category] as Record<string, boolean>;
+
+        return ({
+            ...prev,
+            [category]: {
+                ...categorySettings,
+                // Melakukan toggle nilai boolean
+                [setting]: !categorySettings[setting],
+            },
+        } as AppSettings); // Assert hasil return adalah AppSettings
+    })
   }
 
   const settingsSections = [
@@ -127,16 +161,19 @@ export default function SettingsPage() {
                           <p className="text-sm text-[var(--color-text-tertiary)]">{item.description}</p>
                         </div>
                         <button
-                          onClick={() => handleToggle(item.category, item.setting)}
+                          // Call handleToggle dengan type assertion agar sesuai dengan signature fungsi
+                          onClick={() => handleToggle(item.category as ToggleableCategory, item.setting as AllSettingKeys)}
                           className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
-                            settings[item.category as keyof typeof settings][item.setting as any]
+                            // 3. PERBAIKAN JSX (mengatasi implicit 'any' error)
+                            (settings[item.category as ToggleableCategory] as Record<string, boolean>)[item.setting]
                               ? "bg-[var(--color-primary)]"
                               : "bg-[var(--color-border)]"
                           }`}
                         >
                           <span
                             className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
-                              settings[item.category as keyof typeof settings][item.setting as any]
+                              // PERBAIKAN JSX (mengatasi implicit 'any' error)
+                              (settings[item.category as ToggleableCategory] as Record<string, boolean>)[item.setting]
                                 ? "translate-x-7"
                                 : "translate-x-1"
                             }`}
@@ -157,20 +194,22 @@ export default function SettingsPage() {
               </div>
 
               <div className="space-y-3">
-                {["Light", "Dark", "Auto"].map((theme) => (
+                {["Light", "Dark", "System"].map((mode) => ( // Ganti "Auto" menjadi "System"
                   <label
-                    key={theme}
+                    key={mode}
                     className="flex items-center p-4 bg-[var(--color-bg-primary)] rounded-lg border border-[var(--color-border)] cursor-pointer hover:border-[var(--color-primary)]/50 transition-colors"
                   >
                     <input
                       type="radio"
                       name="theme"
-                      value={theme.toLowerCase()}
-                      checked={settings.theme === theme.toLowerCase()}
-                      onChange={(e) => setSettings((prev) => ({ ...prev, theme: e.target.value }))}
+                      value={mode.toLowerCase()}
+                      // --- KODE YANG DIPERBAIKI ---
+                      checked={theme === mode.toLowerCase()} // Cek status tema global
+                      onChange={(e) => setTheme(e.target.value)} // Set tema global
+                      // ----------------------------
                       className="mr-3"
                     />
-                    <span className="font-medium">{theme} Mode</span>
+                    <span className="font-medium">{mode} Mode</span>
                   </label>
                 ))}
               </div>

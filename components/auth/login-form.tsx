@@ -1,3 +1,5 @@
+// components/auth/login-form.tsx
+
 "use client"
 
 import type React from "react"
@@ -5,13 +7,22 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { Eye, EyeOff } from "lucide-react"
+// --- TAMBAHKAN INI ---
+import { useRouter } from "next/navigation" 
+import { toast } from "@/hooks/use-toast"
+// --------------------
 
 export default function LoginForm() {
+  // --- TAMBAH INI ---
+  const router = useRouter()
+  // -----------------
   const [showPassword, setShowPassword] = useState(false)
+  
+  // PASTIKAN rememberMe ADA DI SINI
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    rememberMe: false,
+    rememberMe: false, // <-- PASTIKAN BARIS INI ADA!
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +35,18 @@ export default function LoginForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Login:", formData)
+    // console.log("Login:", formData)
+
+    // SIMULASI LOGIN BERHASIL
+    toast({
+        title: "Login Berhasil!",
+        description: "Anda berhasil masuk. Mengarahkan ke Beranda...",
+    })
+
+    // PENGALIHAN KE HALAMAN HOME
+    setTimeout(() => {
+        router.push('/home')
+    }, 1500)
   }
 
   return (
@@ -72,7 +94,7 @@ export default function LoginForm() {
           type="checkbox"
           name="rememberMe"
           id="rememberMe"
-          checked={formData.rememberMe}
+          checked={formData.rememberMe} // <--- BARIS YG BIKIN ERROR (Sekarang sudah aman)
           onChange={handleChange}
           className="w-4 h-4 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded cursor-pointer"
         />

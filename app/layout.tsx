@@ -1,8 +1,13 @@
+// app/layout.tsx
 import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+
+// --- BARIS TAMBAHAN UNTUK TEMA & TOASTER ---
+import { Toaster } from "@/components/ui/toaster"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,8 +50,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
+      {/* MENGGUNAKAN VARIABEL FONT YANG BENAR: geistSans dan geistMono */}
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
-        {children}
+        {/* WRAP APLIKASI DENGAN THEME PROVIDER */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+        >
+          {children}
+          {/* TOASTER UNTUK NOTIFIKASI */}
+          <Toaster />
+        </ThemeProvider>
+        {/* ANALYTICS TETAP DI LUAR THEME PROVIDER SESUAI ASLI */}
         <Analytics />
       </body>
     </html>

@@ -4,8 +4,13 @@ import { type NextRequest, NextResponse } from "next/server"
 const publicRoutes = ["/", "/login", "/signup"]
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  // const { pathname } = request.nextUrl // Komentari baris ini
 
+  // PENTING: Untuk sementara biarkan semua request lolos
+  return NextResponse.next() 
+
+  // Komentari semua logika proteksi di bawah ini untuk Dev Mode
+  /*
   // Allow public routes
   if (publicRoutes.includes(pathname)) {
     return NextResponse.next()
@@ -20,9 +25,11 @@ export function middleware(request: NextRequest) {
   }
 
   return NextResponse.next()
+  */
 }
 
 export const config = {
+  // Biarkan config tetap ada
   matcher: [
     /*
      * Match all request paths except for the ones starting with:

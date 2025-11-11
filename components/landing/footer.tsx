@@ -87,10 +87,10 @@ export default function Footer() {
         <div className="border-t border-[var(--color-border)] pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-[var(--color-text-tertiary)]">
           <p>Copyright © 2025 Circlo. All Rights Reserved</p>
           <div className="flex gap-6 mt-4 sm:mt-0">
-            <a href="#" className="hover:text-[var(--color-text-primary)]">
+            <a href="/privacy" className="hover:text-[var(--color-text-primary)]"> {/* <--- UBAH INI */}
               Privacy
             </a>
-            <a href="#" className="hover:text-[var(--color-text-primary)]">
+            <a href="/snk" className="hover:text-[var(--color-text-primary)]"> {/* <--- INI SUDAH DIUBAH SEBELUMNYA */}
               Terms
             </a>
             <a href="#" className="hover:text-[var(--color-text-primary)]">

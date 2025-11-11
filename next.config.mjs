@@ -10,7 +10,8 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    reactCompiler: true,
+    // Hapus atau komentari baris di bawah ini
+    // reactCompiler: true,
   }
 };
 

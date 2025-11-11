@@ -5,8 +5,14 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { Eye, EyeOff } from "lucide-react"
+// --- TAMBAH 2 BARIS INI ---
+import { useRouter } from "next/navigation" 
+import { toast } from "@/hooks/use-toast"
+// -------------------------
 
 export default function SignupForm() {
+  // --- TAMBAH BARIS INI ---
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [formData, setFormData] = useState({
@@ -28,7 +34,19 @@ export default function SignupForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Signup:", formData)
+    //console.log("Signup:", formData)
+    // --- LOGIKA SIMULASI SIGNUP DIMULAI ---
+    // 1. Tampilkan pesan sukses
+    toast({
+        title: "Pendaftaran Berhasil!",
+        description: "Selamat datang di Circlo. Anda akan diarahkan ke Beranda.",
+    })
+
+    // 2. Simulasikan pengalihan ke /home setelah 1.5 detik
+    setTimeout(() => {
+        router.push('/home')
+    }, 1500)
+    // --- LOGIKA SIMULASI SIGNUP SELESAI ---
   }
 
   return (
