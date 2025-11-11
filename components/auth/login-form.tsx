@@ -50,22 +50,24 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="custom-form-layout space-y-4"> 
       <div>
-        <label className="block text-sm font-medium mb-2 text-[var(--color-text-primary)]">Email / Username</label>
+        {/* Hapus block text-sm font-medium mb-2 text-[var(--color-text-primary)] */}
+        <label className="custom-label mb-2">Email / Username</label>
         <input
           type="text"
           name="email"
           value={formData.email}
           onChange={handleChange}
           placeholder="Enter your email or username"
-          className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+          // Ganti semua kelas Tailwind dengan custom class
+          className="form-input"
         />
       </div>
 
       <div>
         <div className="flex justify-between items-center mb-2">
-          <label className="block text-sm font-medium text-[var(--color-text-primary)]">Password</label>
+          <label className="custom-label">Password</label>
           <Link href="#" className="text-xs text-[var(--color-primary)] hover:underline">
             Forgot password?
           </Link>
@@ -77,12 +79,15 @@ export default function LoginForm() {
             value={formData.password}
             onChange={handleChange}
             placeholder="Enter your password"
-            className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+            // Ganti semua kelas Tailwind dengan custom class
+            className="form-input"
           />
+          {/* Kelas di button icon ini akan menjadi masalah. Perlu ditambahkan CSS untuk ini */}
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]"
+            // Catatan: Kelas translate-y-1/2 dan right-3 masih Tailwind. Anda harus memindahkan CSS ini ke globals.css
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
@@ -105,7 +110,8 @@ export default function LoginForm() {
 
       <button
         type="submit"
-        className="w-full py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white rounded-lg font-medium hover:opacity-90 transition-opacity mt-6"
+        // Ganti semua kelas Tailwind dengan custom class
+        className="full-width-button mt-6"
       >
         Login
       </button>

@@ -54,12 +54,12 @@ export default function ChatPage() {
   const selectedContact = CHAT_CONTACTS.find((c) => c.id === selectedContactId)
 
   return (
-    <div className="flex bg-[var(--color-bg-primary)] min-h-screen pb-20 lg:pb-0">
+    <div className="app-container pb-20 lg:pb-0"> {/* Menggunakan app-container */}
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
-      <main className="flex-1 lg:ml-64 h-screen flex flex-col md:flex-row">
+      <main className="flex-1 lg:ml-64 chat-layout"> {/* Menggunakan chat-layout */}
         <ChatSidebar contacts={CHAT_CONTACTS} selectedId={selectedContactId} onSelectContact={setSelectedContactId} />
 
         {selectedContact && <ChatWindow contactName={selectedContact.name} contactAvatar={selectedContact.avatar} />}
@@ -68,6 +68,13 @@ export default function ChatPage() {
         <div className="md:hidden flex-1 flex items-center justify-center text-[var(--color-text-tertiary)]">
           <p>Select a conversation to chat</p>
         </div>
+        
+        {/* Empty State for Desktop jika tidak ada kontak dipilih (perbaikan opsional yang saya sarankan) */}
+        {!selectedContact && (
+            <div className="hidden md:flex flex-1 items-center justify-center text-[var(--color-text-tertiary)]">
+                <p>Select a conversation to start chatting</p>
+            </div>
+        )}
       </main>
 
       {/* Mobile Navigation */}

@@ -64,20 +64,20 @@ export default function SearchPage() {
   }, [searchQuery])
 
   return (
-    <div className="flex bg-[var(--color-bg-primary)] min-h-screen pb-20 lg:pb-0">
+    <div className="app-container pb-20 lg:pb-0">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
       <main className="flex-1 lg:ml-64 xl:mr-72">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6">
+        <div className="main-content-inner"> {/* Menggunakan custom class */}
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">Search</h1>
             <p className="text-[var(--color-text-secondary)]">Find users, posts, and communities</p>
           </div>
 
-          {/* Search Bar */}
+          {/* Search Bar (SearchBar.tsx masih perlu dimigrasi, tapi kita fokus pada page.tsx dulu) */}
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
           {/* Results */}
@@ -91,7 +91,8 @@ export default function SearchPage() {
                 {SAMPLE_RESULTS.slice(0, 3).map((result) => (
                   <div
                     key={result.id}
-                    className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg p-4 hover:border-[var(--color-primary)]/50 transition-colors cursor-pointer"
+                    // Mengganti kelas, menggunakan search-result-card
+                    className="search-result-card" 
                   >
                     <h3 className="font-bold text-lg mb-1">{result.title}</h3>
                     {result.stats && (

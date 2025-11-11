@@ -1,3 +1,5 @@
+// components/home/mobile-nav.tsx
+
 "use client"
 
 import Link from "next/link"
@@ -14,13 +16,16 @@ export default function MobileNav() {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)] lg:hidden">
-      <div className="flex justify-around items-center">
+    // Menggunakan custom class mobile-nav-bar
+    <nav className="mobile-nav-bar"> 
+      {/* Menggunakan custom class mobile-nav-list */}
+      <div className="mobile-nav-list"> 
         {menuItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className="flex-1 flex justify-center items-center py-4 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-primary)]/10 transition-colors"
+            // Menggunakan custom class mobile-nav-link
+            className="mobile-nav-link" 
           >
             <item.icon size={24} />
           </Link>

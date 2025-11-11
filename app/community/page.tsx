@@ -83,13 +83,14 @@ export default function CommunityPage() {
   const availableCommunities = communities.filter((c) => !c.isJoined)
 
   return (
-    <div className="flex bg-[var(--color-bg-primary)] min-h-screen pb-20 lg:pb-0">
+    <div className="app-container pb-20 lg:pb-0">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
       <main className="flex-1 lg:ml-64 xl:mr-72">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+        {/* Menggunakan custom class community-page-inner */}
+        <div className="community-page-inner"> 
           {/* Header */}
           <div className="mb-12">
             <h1 className="text-4xl font-bold mb-2">Communities</h1>
@@ -102,7 +103,8 @@ export default function CommunityPage() {
           {joinedCommunities.length > 0 && (
             <div className="mb-12">
               <h2 className="text-2xl font-bold mb-6">Your Communities ({joinedCommunities.length})</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Menggunakan custom class community-grid */}
+              <div className="community-grid"> 
                 {joinedCommunities.map((community) => (
                   <CommunityCard
                     key={community.id}
@@ -118,7 +120,8 @@ export default function CommunityPage() {
           {availableCommunities.length > 0 && (
             <div>
               <h2 className="text-2xl font-bold mb-6">Discover Communities ({availableCommunities.length})</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Menggunakan custom class community-grid */}
+              <div className="community-grid"> 
                 {availableCommunities.map((community) => (
                   <CommunityCard
                     key={community.id}

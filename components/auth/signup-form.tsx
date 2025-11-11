@@ -1,17 +1,13 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { Eye, EyeOff } from "lucide-react"
-// --- TAMBAH 2 BARIS INI ---
 import { useRouter } from "next/navigation" 
 import { toast } from "@/hooks/use-toast"
-// -------------------------
 
 export default function SignupForm() {
-  // --- TAMBAH BARIS INI ---
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -34,73 +30,75 @@ export default function SignupForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    //console.log("Signup:", formData)
-    // --- LOGIKA SIMULASI SIGNUP DIMULAI ---
-    // 1. Tampilkan pesan sukses
+    // --- LOGIKA SIMULASI SIGNUP ---
     toast({
         title: "Pendaftaran Berhasil!",
         description: "Selamat datang di Circlo. Anda akan diarahkan ke Beranda.",
     })
-
-    // 2. Simulasikan pengalihan ke /home setelah 1.5 detik
     setTimeout(() => {
         router.push('/home')
     }, 1500)
-    // --- LOGIKA SIMULASI SIGNUP SELESAI ---
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    // Ganti space-y-4
+    <form onSubmit={handleSubmit} className="custom-form-layout space-y-4">
+      
+      {/* Field: Full Name */}
       <div>
-        <label className="block text-sm font-medium mb-2 text-[var(--color-text-primary)]">Full Name</label>
+        <label className="text-sm font-medium mb-2 text-[var(--color-text-primary)]">Full Name</label>
         <input
           type="text"
           name="fullName"
           value={formData.fullName}
           onChange={handleChange}
           placeholder="Enter your full name"
-          className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+          className="form-input"
         />
       </div>
 
+      {/* Field: Username */}
       <div>
-        <label className="block text-sm font-medium mb-2 text-[var(--color-text-primary)]">Username</label>
+        <label className="text-sm font-medium mb-2 text-[var(--color-text-primary)]">Username</label>
         <input
           type="text"
           name="username"
           value={formData.username}
           onChange={handleChange}
           placeholder="Choose your username"
-          className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+          className="form-input"
         />
       </div>
 
+      {/* Field: Email */}
       <div>
-        <label className="block text-sm font-medium mb-2 text-[var(--color-text-primary)]">Email</label>
+        <label className="text-sm font-medium mb-2 text-[var(--color-text-primary)]">Email</label>
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
           placeholder="Enter your email"
-          className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+          className="form-input"
         />
       </div>
 
+      {/* Field: Phone Number */}
       <div>
-        <label className="block text-sm font-medium mb-2 text-[var(--color-text-primary)]">Phone Number</label>
+        <label className="text-sm font-medium mb-2 text-[var(--color-text-primary)]">Phone Number</label>
         <input
           type="tel"
           name="phone"
           value={formData.phone}
           onChange={handleChange}
           placeholder="Enter your phone number"
-          className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+          className="form-input"
         />
       </div>
 
+      {/* Field: Password */}
       <div>
-        <label className="block text-sm font-medium mb-2 text-[var(--color-text-primary)]">Password</label>
+        <label className="text-sm font-medium mb-2 text-[var(--color-text-primary)]">Password</label>
         <div className="relative">
           <input
             type={showPassword ? "text" : "password"}
@@ -108,18 +106,20 @@ export default function SignupForm() {
             value={formData.password}
             onChange={handleChange}
             placeholder="Create a strong password"
-            className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+            className="form-input"
           />
+          {/* Kelas positioning/styling untuk tombol icon perlu CSS kustom di globals.css */}
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]"
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         </div>
       </div>
 
+      {/* Field: Confirm Password */}
       <div>
         <label className="block text-sm font-medium mb-2 text-[var(--color-text-primary)]">Confirm Password</label>
         <div className="relative">
@@ -129,12 +129,12 @@ export default function SignupForm() {
             value={formData.confirmPassword}
             onChange={handleChange}
             placeholder="Confirm your password"
-            className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+            className="form-input"
           />
           <button
             type="button"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]"
           >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
@@ -143,7 +143,7 @@ export default function SignupForm() {
 
       <button
         type="submit"
-        className="w-full py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white rounded-lg font-medium hover:opacity-90 transition-opacity mt-6"
+        className="full-width-button mt-6"
       >
         Create Account
       </button>

@@ -1,3 +1,5 @@
+// components/home/create-post.tsx
+
 "use client"
 
 import type React from "react"
@@ -15,37 +17,39 @@ export default function CreatePost() {
   }
 
   return (
-    <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-4 sm:p-6 mb-6">
-      <div className="flex gap-4">
-        <img src="/diverse-user-avatars.png" alt="Your avatar" className="w-12 h-12 rounded-full object-cover" />
-        <form onSubmit={handleSubmit} className="flex-1">
+    // Menggunakan custom class create-post-card
+    <div className="create-post-card">
+      <div className="create-post-content">
+        <img src="/diverse-user-avatars.png" alt="Your avatar" className="create-post-avatar" />
+        <form onSubmit={handleSubmit} className="create-post-form">
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="What's on your mind?"
-            className="w-full bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-lg px-4 py-3 text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent resize-none"
+            // Menggunakan custom class post-textarea
+            className="post-textarea"
             rows={3}
           />
 
           {/* Toolbar */}
-          <div className="flex items-center justify-between mt-4">
-            <div className="flex gap-2">
+          <div className="post-toolbar">
+            <div className="toolbar-actions">
               <button
                 type="button"
-                className="p-2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg transition-colors"
+                className="toolbar-icon-button"
               >
                 <ImageIcon size={20} />
               </button>
               <button
                 type="button"
-                className="p-2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg transition-colors"
+                className="toolbar-icon-button"
               >
                 <Smile size={20} />
               </button>
             </div>
             <button
               type="submit"
-              className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-dark)] transition-colors font-medium"
+              className="post-submit-button"
             >
               <Send size={18} />
               Post

@@ -17,34 +17,40 @@ export default function RightSidebar() {
   ]
 
   return (
-    <aside className="hidden xl:block w-72 space-y-6">
+    // Menggunakan custom class right-sidebar
+    <aside className="right-sidebar space-y-6">
       {/* Search */}
       <div className="relative">
         <input
           type="text"
           placeholder="Search Circlo..."
-          className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-full px-4 py-3 text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
+          // Menggunakan custom class sidebar-search-input
+          className="sidebar-search-input"
         />
+        {/* Catatan: Icon Search sudah hilang karena input di sidebar asli tidak memilikinya (hanya input field) */}
       </div>
 
       {/* Suggestions */}
-      <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-4">
+      {/* Menggunakan custom class right-sidebar-box */}
+      <div className="right-sidebar-box">
         <h3 className="font-bold text-lg mb-4">Suggestions For You</h3>
         <div className="space-y-3">
           {suggestions.map((suggestion) => (
-            <div key={suggestion.username} className="flex items-center justify-between">
-              <div className="flex items-center gap-2 flex-1">
+            // Menggunakan custom class suggestion-item
+            <div key={suggestion.username} className="suggestion-item">
+              <div className="suggestion-info">
                 <img
                   src={suggestion.avatar || "/placeholder.svg"}
                   alt={suggestion.name}
-                  className="w-8 h-8 rounded-full"
+                  className="suggestion-avatar"
                 />
                 <div className="min-w-0 flex-1">
                   <p className="font-medium text-sm">{suggestion.name}</p>
                   <p className="text-xs text-[var(--color-text-tertiary)]">@{suggestion.username}</p>
                 </div>
               </div>
-              <button className="text-xs px-3 py-1 bg-[var(--color-primary)] text-white rounded-full hover:bg-[var(--color-primary-dark)] transition-colors">
+              {/* Menggunakan custom class follow button */}
+              <button className="suggestion-follow-button">
                 Follow
               </button>
             </div>
@@ -53,16 +59,18 @@ export default function RightSidebar() {
       </div>
 
       {/* Trending */}
-      <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-4">
+      {/* Menggunakan custom class right-sidebar-box */}
+      <div className="right-sidebar-box">
         <h3 className="font-bold text-lg mb-4">Trending Today</h3>
         <div className="space-y-3">
           {trends.map((trend) => (
             <Link
               key={trend.hashtag}
               href={`/search?q=${trend.hashtag}`}
-              className="block p-3 hover:bg-[var(--color-bg-primary)] rounded-lg transition-colors group"
+              // Menggunakan custom class trending-item
+              className="trending-item group" 
             >
-              <p className="font-medium group-hover:text-[var(--color-primary)]">{trend.hashtag}</p>
+              <p className="font-medium trend-title">{trend.hashtag}</p>
               <p className="text-xs text-[var(--color-text-tertiary)]">{trend.posts} posts</p>
             </Link>
           ))}

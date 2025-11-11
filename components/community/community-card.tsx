@@ -1,3 +1,5 @@
+// components/community/community-card.tsx
+
 "use client"
 
 import { Users } from "lucide-react"
@@ -20,15 +22,15 @@ export default function CommunityCard({
   onToggleJoin,
 }: CommunityCardProps) {
   return (
-    <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-6 hover:border-[var(--color-primary)]/50 transition-colors">
-      <div className="flex items-start justify-between mb-4">
+    // Menggunakan custom class community-card
+    <div className="community-card"> 
+      <div className="community-card-header">
         <div className="text-4xl">{icon}</div>
         <button
           onClick={onToggleJoin}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            isJoined
-              ? "bg-[var(--color-bg-primary)] text-[var(--color-primary)] border border-[var(--color-primary)]"
-              : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)]"
+          // Menggunakan custom class community-join-button
+          className={`community-join-button ${
+            isJoined ? "is-joined" : "is-not-joined"
           }`}
         >
           {isJoined ? "Joined" : "Join"}
@@ -38,7 +40,8 @@ export default function CommunityCard({
       <h3 className="text-xl font-bold mb-2">{name}</h3>
       <p className="text-[var(--color-text-tertiary)] text-sm mb-4">{description}</p>
 
-      <div className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
+      {/* Menggunakan custom class community-member-stats */}
+      <div className="community-member-stats">
         <Users size={16} />
         <span>{members.toLocaleString()} members</span>
       </div>

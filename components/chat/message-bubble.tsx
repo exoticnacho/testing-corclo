@@ -1,3 +1,4 @@
+// components/chat/message-bubble.tsx
 "use client"
 
 interface MessageBubbleProps {
@@ -9,23 +10,22 @@ interface MessageBubbleProps {
 
 export default function MessageBubble({ content, timestamp, isOwn, avatar }: MessageBubbleProps) {
   return (
-    <div className={`flex gap-2 mb-4 ${isOwn ? "flex-row-reverse" : ""}`}>
+    // Menggunakan custom class untuk layout utama
+    <div className={`message-bubble-container ${isOwn ? "is-own" : ""}`}>
       <img
         src={avatar || "/placeholder.svg"}
         alt="Avatar"
-        className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+        className="message-bubble-avatar" // Mengganti w-8 h-8 rounded-full object-cover flex-shrink-0
       />
-      <div className={`flex flex-col ${isOwn ? "items-end" : "items-start"}`}>
+      {/* Menggunakan custom class untuk konten pesan */}
+      <div className={`message-bubble-content ${isOwn ? "is-own" : "is-other"}`}>
         <div
-          className={`px-4 py-2 rounded-2xl max-w-xs ${
-            isOwn
-              ? "bg-[var(--color-primary)] text-white rounded-br-none"
-              : "bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] rounded-bl-none"
-          }`}
+          // Menggunakan custom class untuk bubble
+          className={`message-bubble ${isOwn ? "is-own" : "is-other"}`} 
         >
           <p className="break-words">{content}</p>
         </div>
-        <span className="text-xs text-[var(--color-text-tertiary)] mt-1">{timestamp}</span>
+        <span className="message-timestamp">{timestamp}</span>
       </div>
     </div>
   )

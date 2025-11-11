@@ -59,13 +59,15 @@ export default function ChatWindow({ contactName, contactAvatar }: ChatWindowPro
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-[var(--color-bg-primary)] hidden md:flex">
+    // Menggunakan custom class chat-window-container
+    <div className="chat-window-container"> 
+      
       {/* Chat Header */}
-      <div className="p-4 border-b border-[var(--color-border)] flex items-center gap-3">
+      <div className="chat-sidebar-header border-b border-[var(--color-border)] flex items-center gap-3">
         <img
           src={contactAvatar || "/placeholder.svg"}
           alt={contactName}
-          className="w-10 h-10 rounded-full object-cover"
+          className="post-avatar w-10 h-10" // Re-use post-avatar dan override size
         />
         <h2 className="font-bold text-lg">{contactName}</h2>
       </div>
@@ -84,19 +86,21 @@ export default function ChatWindow({ contactName, contactAvatar }: ChatWindowPro
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-[var(--color-border)]">
-        <div className="flex gap-2">
+      <div className="chat-input-wrapper">
+        <div className="flex gap-2 w-full">
+          {/* Menggunakan custom class untuk input */}
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSend()}
             placeholder="Type a message..."
-            className="flex-1 px-4 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+            className="chat-input-field"
           />
+          {/* Menggunakan custom class untuk tombol kirim */}
           <button
             onClick={handleSend}
-            className="p-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-dark)] transition-colors"
+            className="chat-send-button"
           >
             <Send size={20} />
           </button>

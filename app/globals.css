@@ -1,6 +1,3 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -149,4 +146,775 @@ input {
 
 ::-webkit-scrollbar-thumb {
   @apply bg-primary rounded;
+}
+
+.form-card {
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.5rem; /* p-6 */
+}
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* rounded-lg */
+  color: var(--color-text-primary);
+  /* Meniru focus ring yang sebelumnya dari Tailwind */
+  outline: none;
+  transition: all 0.2s;
+}
+.form-input:focus {
+  box-shadow: 0 0 0 2px var(--color-primary);
+  border-color: transparent;
+}
+.full-width-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+.full-width-button:hover {
+  opacity: 0.9;
+}
+
+/* --- CLASSES STRUKTUR DAN TATA LETAK DASAR --- */
+
+.app-container {
+  display: flex;
+  background: var(--color-bg-primary); /* bg-[var(--color-bg-primary)] */
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1; /* flex-1 */
+  margin-left: 16rem; /* lg:ml-64 */
+  margin-right: 18rem; /* xl:mr-72 */
+}
+.main-content-inner {
+  max-width: 42rem; /* max-w-2xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem; /* px-4 */
+  padding-top: 1.5rem; /* py-6 */
+  padding-bottom: 1.5rem; /* py-6 */
+}
+@media (min-width: 640px) { /* sm:px-6 */
+  .main-content-inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+
+/* --- CLASSES UNTUK BOX DAN POSTS --- */
+
+.box-container {
+  background: var(--color-bg-secondary); /* bg-[var(--color-bg-secondary)] */
+  border: 1px solid var(--color-border); /* border border-[var(--color-border)] */
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.5rem; /* p-6 */
+}
+.box-header {
+  display: flex;
+  align-items: flex-start; /* items-start */
+  gap: 1rem; /* gap-4 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+.box-avatar {
+  width: 3rem; /* w-12 */
+  height: 3rem; /* h-12 */
+  border-radius: 9999px; /* rounded-full */
+  object-fit: cover;
+}
+
+/* --- BUTTON & LINK DEFAULTS --- */
+
+.button-base {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* gap-2 */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.link-style {
+  color: var(--color-text-secondary); /* text-[var(--color-text-secondary)] */
+  transition: color 0.2s;
+}
+.link-style:hover {
+  color: var(--color-text-primary); /* hover:text-[var(--color-text-primary)] */
+}
+
+/* --- CLASSES UNTUK POST CARD --- */
+.post-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1rem; /* p-4 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+@media (min-width: 640px) {
+  .post-card {
+    padding: 1.5rem; /* sm:p-6 */
+  }
+}
+.post-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem; /* gap-4 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+.post-avatar {
+  width: 3rem; /* w-12 */
+  height: 3rem; /* h-12 */
+  border-radius: 9999px; /* rounded-full */
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.post-info-container {
+  flex: 1; /* flex-1 */
+}
+
+/* --- CLASSES UNTUK POST ACTIONS (Footer) --- */
+.post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text-tertiary); /* text-[var(--color-text-tertiary)] */
+  border-top: 1px solid var(--color-border);
+  padding-top: 1rem; /* pt-4 */
+}
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  padding: 0.5rem 0.75rem; /* px-3 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: background-color 0.2s, color 0.2s;
+}
+.action-button:hover {
+  background: var(--color-primary) 0.1; /* hover:bg-[var(--color-primary)]/10 */
+}
+.action-button .icon-hover:hover {
+  color: var(--color-text-primary); /* group-hover:text-[var(--color-text-primary)] */
+}
+/* Style khusus untuk tombol Like yang aktif */
+.action-button.liked {
+  color: #ef4444; /* text-red-500 */
+}
+
+/* --- CLASSES UNTUK SIDEBAR --- */
+
+.app-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 16rem; /* w-64 */
+  height: 100vh; /* h-screen */
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  padding: 1.5rem; /* p-6 */
+  overflow-y: auto;
+  display: none; /* hidden */
+  flex-direction: column; /* flex-col */
+}
+@media (min-width: 1024px) { /* lg:flex */
+  .app-sidebar {
+    display: flex;
+  }
+}
+
+.sidebar-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  margin-bottom: 3rem; /* mb-12 */
+}
+
+.sidebar-nav {
+  flex: 1; /* flex-1 */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* space-y-2 */
+}
+
+/* Style untuk Link Navigasi (Menu Item) */
+.sidebar-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* gap-3 */
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  color: var(--color-text-secondary);
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: all 0.2s;
+}
+.sidebar-menu-item:hover {
+  color: var(--color-text-primary);
+  background: rgba(var(--color-primary), 0.1); /* hover:bg-[var(--color-primary)]/10 */
+}
+.sidebar-menu-item:hover .sidebar-icon {
+  color: var(--color-primary);
+}
+.sidebar-icon {
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+/* Style untuk Logout Button */
+.sidebar-logout-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* gap-3 */
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  color: var(--color-text-secondary);
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: all 0.2s;
+}
+.sidebar-logout-button:hover {
+  color: #fb7185; /* hover:text-red-400 */
+  background: rgba(251, 113, 133, 0.1); /* hover:bg-red-400/10 */
+}
+
+/* --- CLASSES UNTUK CHAT LAYOUT & SIDEBAR --- */
+
+.chat-layout {
+  height: 100vh; /* h-screen */
+  display: flex;
+  flex-direction: column; /* flex-col md:flex-row */
+}
+@media (min-width: 768px) {
+  .chat-layout {
+    flex-direction: row;
+  }
+}
+.chat-window-container {
+  flex: 1; /* flex-1 */
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-primary);
+  display: none; /* hidden md:flex */
+}
+@media (min-width: 768px) {
+  .chat-window-container {
+    display: flex;
+  }
+}
+
+/* --- CLASSES UNTUK CHAT SIDEBAR --- */
+
+.chat-sidebar-container {
+  width: 100%; /* w-full */
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .chat-sidebar-container {
+    width: 20rem; /* md:w-80 */
+    height: 100%;
+  }
+}
+.chat-sidebar-header {
+  padding: 1rem; /* p-4 */
+  border-bottom: 1px solid var(--color-border);
+}
+.contact-search-input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem; /* pl-10 pr-4 py-2 */
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* rounded-lg */
+  color: var(--color-text-primary);
+  /* Meniru focus ring */
+  outline: none;
+  transition: all 0.2s;
+}
+.contact-search-input:focus {
+  box-shadow: 0 0 0 2px var(--color-primary);
+  border-color: transparent;
+}
+.contact-search-icon {
+  position: absolute;
+  left: 0.75rem; /* left-3 */
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-tertiary);
+}
+.contact-list {
+  flex: 1;
+  overflow-y: auto;
+}
+.contact-item {
+  width: 100%;
+  padding: 1rem; /* p-4 */
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color 0.2s;
+  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem; /* gap-3 */
+}
+.contact-item:hover {
+  background: var(--color-bg-primary);
+}
+.contact-item.selected {
+  background: rgba(var(--color-primary), 0.1); /* bg-[var(--color-primary)]/10 */
+  border-left: 2px solid var(--color-primary);
+}
+.contact-unread-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0.75rem; /* w-3 */
+  height: 0.75rem; /* h-3 */
+  background: var(--color-primary);
+  border-radius: 9999px;
+}
+
+/* --- CLASSES UNTUK MESSAGE BUBBLE --- */
+
+.message-bubble-container {
+  display: flex;
+  gap: 0.5rem; /* gap-2 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+.message-bubble-avatar {
+  width: 2rem; /* w-8 */
+  height: 2rem; /* h-8 */
+  border-radius: 9999px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.message-bubble-content {
+  display: flex;
+  flex-direction: column;
+}
+.message-bubble {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 1rem; /* rounded-2xl */
+  max-width: 20rem; /* max-w-xs */
+  word-break: break-word; /* break-words */
+}
+/* Styles untuk pesan sendiri (isOwn) */
+.message-bubble-container.is-own {
+  flex-direction: row-reverse; /* flex-row-reverse */
+}
+.message-bubble-content.is-own {
+  align-items: flex-end; /* items-end */
+}
+.message-bubble.is-own {
+  background: var(--color-primary);
+  color: white;
+  border-bottom-right-radius: 0; /* rounded-br-none */
+}
+/* Styles untuk pesan dari orang lain */
+.message-bubble.is-other {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border-bottom-left-radius: 0; /* rounded-bl-none */
+}
+.message-timestamp {
+  font-size: 0.75rem; /* text-xs */
+  color: var(--color-text-tertiary);
+  margin-top: 0.25rem; /* mt-1 */
+}
+
+/* --- CLASSES UNTUK CHAT INPUT --- */
+.chat-input-wrapper {
+  padding: 1rem; /* p-4 */
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: 0.5rem; /* gap-2 */
+}
+.chat-input-field {
+  flex: 1;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  color: var(--color-text-primary);
+  outline: none;
+  transition: all 0.2s;
+}
+.chat-input-field:focus {
+  box-shadow: 0 0 0 2px var(--color-primary);
+  border-color: transparent;
+}
+.chat-send-button {
+  padding: 0.5rem; /* p-2 */
+  background: var(--color-primary);
+  color: white;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+.chat-send-button:hover {
+  background: var(--color-primary-dark);
+}
+
+/* --- CLASSES UNTUK RIGHT SIDEBAR --- */
+
+.right-sidebar {
+  /* hidden xl:block w-72 space-y-6 */
+  display: none;
+  width: 18rem; /* w-72 */
+  /* Margin vertical dikelola oleh parent container (space-y-6) */
+}
+@media (min-width: 1280px) { /* xl:block */
+  .right-sidebar {
+    display: block;
+  }
+}
+
+.right-sidebar-box {
+  /* bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-4 */
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1rem; /* p-4 */
+}
+
+.sidebar-search-input {
+  /* w-full ... rounded-full px-4 py-3 ... focus:ring-2 focus:ring-[var(--color-primary)] */
+  width: 100%;
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px; /* rounded-full */
+  color: var(--color-text-primary);
+  outline: none;
+  transition: all 0.2s;
+}
+.sidebar-search-input:focus {
+  box-shadow: 0 0 0 2px var(--color-primary);
+  border-color: transparent;
+}
+
+.suggestion-item {
+  /* flex items-center justify-between */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.suggestion-info {
+    /* flex items-center gap-2 flex-1 */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* gap-2 */
+    flex: 1;
+}
+.suggestion-avatar {
+    /* w-8 h-8 rounded-full */
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    object-fit: cover;
+}
+.suggestion-follow-button {
+    /* text-xs px-3 py-1 bg-[var(--color-primary)] text-white rounded-full */
+    font-size: 0.75rem; /* text-xs */
+    padding: 0.25rem 0.75rem; /* px-3 py-1 */
+    background: var(--color-primary);
+    color: white;
+    border-radius: 9999px; /* rounded-full */
+    transition: background-color 0.2s;
+}
+.suggestion-follow-button:hover {
+    background: var(--color-primary-dark);
+}
+
+.trending-item {
+    /* block p-3 hover:bg-[var(--color-bg-primary)] rounded-lg */
+    display: block;
+    padding: 0.75rem; /* p-3 */
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+}
+.trending-item:hover {
+    background: var(--color-bg-primary);
+}
+.trending-item .trend-title {
+    /* font-medium group-hover:text-[var(--color-primary)] */
+    font-weight: 500;
+}
+.trending-item:hover .trend-title {
+    color: var(--color-primary);
+}
+
+
+/* --- CLASSES UNTUK CREATE POST --- */
+
+.create-post-card {
+  /* bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-4 sm:p-6 mb-6 */
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+@media (min-width: 640px) {
+  .create-post-card {
+    padding: 1.5rem;
+  }
+}
+.create-post-content {
+  display: flex;
+  gap: 1rem; /* gap-4 */
+}
+.create-post-avatar {
+  /* w-12 h-12 rounded-full object-cover */
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  object-fit: cover;
+}
+.create-post-form {
+  flex: 1;
+}
+.post-textarea {
+  /* w-full bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-lg ... resize-none */
+  width: 100%;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--color-text-primary);
+  resize: none;
+  outline: none;
+  transition: all 0.2s;
+}
+.post-textarea:focus {
+  box-shadow: 0 0 0 2px var(--color-primary);
+  border-color: transparent;
+}
+.post-toolbar {
+  /* flex items-center justify-between mt-4 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem; /* mt-4 */
+}
+.toolbar-actions {
+  display: flex;
+  gap: 0.5rem; /* gap-2 */
+}
+.toolbar-icon-button {
+  /* p-2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg */
+  padding: 0.5rem;
+  color: var(--color-text-tertiary);
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+.toolbar-icon-button:hover {
+  color: var(--color-text-primary);
+  background: rgba(var(--color-primary), 0.1);
+}
+.post-submit-button {
+  /* flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-dark)] font-medium */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+.post-submit-button:hover {
+  background: var(--color-primary-dark);
+}
+
+/* --- CLASSES UNTUK MOBILE NAVIGASI --- */
+
+.mobile-nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+}
+@media (min-width: 1024px) { /* lg:hidden */
+  .mobile-nav-bar {
+    display: none;
+  }
+}
+
+.mobile-nav-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.mobile-nav-link {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: var(--color-text-secondary);
+  transition: all 0.2s;
+}
+.mobile-nav-link:hover {
+  color: var(--color-text-primary);
+  background: rgba(var(--color-primary), 0.1);
+}
+
+/* --- CLASSES UNTUK SEARCH RESULTS CARD --- */
+
+.search-result-card {
+  /* mereplikasi bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg p-4 */
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* rounded-lg */
+  padding: 1rem; /* p-4 */
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.search-result-card:hover {
+  border-color: rgba(var(--color-primary), 0.5); /* hover:border-[var(--color-primary)]/50 */
+}
+.search-user-info {
+  /* mereplikasi flex items-center gap-3 flex-1 */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* gap-3 */
+  flex: 1;
+}
+.search-user-avatar {
+    /* mereplikasi w-12 h-12 rounded-full object-cover */
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    object-fit: cover;
+}
+
+/* --- FOLLOW BUTTON STATES --- */
+
+.follow-button {
+    /* mereplikasi px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-dark)] */
+    padding: 0.5rem 1rem;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+.follow-button:hover {
+    background: var(--color-primary-dark);
+}
+
+.follow-button.is-following {
+    /* Gaya untuk tombol 'Following' */
+    background: var(--color-bg-primary);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+.follow-button.is-following:hover {
+    /* hover:bg-[var(--color-primary)]/10 */
+    background: rgba(var(--color-primary), 0.1);
+}
+
+/* --- CLASSES UNTUK COMMUNITY PAGE --- */
+
+.community-page-inner {
+  max-width: 64rem; /* max-w-4xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem 1rem; /* px-4 sm:px-6 py-6 */
+}
+@media (min-width: 640px) {
+  .community-page-inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+.community-grid {
+    display: grid;
+    gap: 1.5rem; /* gap-6 */
+}
+@media (min-width: 768px) {
+    .community-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */
+    }
+}
+@media (min-width: 1024px) {
+    .community-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
+    }
+}
+
+
+/* --- CLASSES UNTUK COMMUNITY CARD --- */
+
+.community-card {
+  /* mereplikasi bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-6 */
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.5rem; /* p-6 */
+  transition: border-color 0.2s;
+}
+.community-card:hover {
+  border-color: rgba(var(--color-primary), 0.5); /* hover:border-[var(--color-primary)]/50 */
+}
+.community-card-header {
+  /* flex items-start justify-between mb-4 */
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem; /* mb-4 */
+}
+.community-member-stats {
+  /* flex items-center gap-2 text-sm text-[var(--color-text-secondary)] */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  font-size: 0.875rem; /* text-sm */
+  color: var(--color-text-secondary);
+}
+
+/* --- JOIN BUTTON STATES --- */
+
+.community-join-button {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-weight: 500;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.community-join-button.is-not-joined {
+  /* Join Button: bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)] */
+  background: var(--color-primary);
+  color: white;
+  border: 1px solid transparent;
+}
+.community-join-button.is-not-joined:hover {
+  background: var(--color-primary-dark);
+}
+
+.community-join-button.is-joined {
+  /* Joined Button: bg-[var(--color-bg-primary)] text-[var(--color-primary)] border border-[var(--color-primary)] */
+  background: var(--color-bg-primary);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+.community-join-button.is-joined:hover {
+  /* Efek hover untuk tombol Joined */
+  background: rgba(var(--color-primary), 0.05);
 }

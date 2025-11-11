@@ -27,15 +27,17 @@ export default function Post({ author, timestamp, content, image, likes, comment
   }
 
   return (
-    <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-4 sm:p-6 mb-4">
+    // Mengganti semua kelas box styling
+    <div className="post-card"> 
+      
       {/* Header */}
-      <div className="flex items-start gap-4 mb-4">
+      <div className="post-header">
         <img
           src={author.avatar || "/placeholder.svg"}
           alt={author.name}
-          className="w-12 h-12 rounded-full object-cover"
+          className="post-avatar" // Mengganti w-12 h-12 rounded-full object-cover
         />
-        <div className="flex-1">
+        <div className="post-info-container">
           <div>
             <h3 className="font-bold text-[var(--color-text-primary)]">{author.name}</h3>
             <p className="text-sm text-[var(--color-text-tertiary)]">@{author.username}</p>
@@ -52,33 +54,39 @@ export default function Post({ author, timestamp, content, image, likes, comment
         <img
           src={image || "/placeholder.svg"}
           alt="Post content"
-          className="w-full rounded-lg mb-4 object-cover max-h-96"
+          // Kelas untuk image
+          className="w-full rounded-lg mb-4 object-cover"
+          style={{ maxHeight: '24rem' }} // Mengganti max-h-96
         />
       )}
 
       {/* Actions */}
-      <div className="flex items-center justify-between text-[var(--color-text-tertiary)] border-t border-[var(--color-border)] pt-4">
+      <div className="post-actions">
+        
+        {/* Like Button */}
         <button
           onClick={handleLike}
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors group ${
-            isLiked ? "text-red-500" : "hover:bg-[var(--color-primary)]/10"
-          }`}
+          // Menggunakan kelas dasar dan kelas liked kondisional
+          className={`action-button group ${isLiked ? "liked" : ""}`}
         >
           <Heart
             size={20}
             fill={isLiked ? "currentColor" : "none"}
-            className={isLiked ? "text-red-500" : "group-hover:text-[var(--color-text-primary)]"}
+            // Menggunakan kelas untuk mengontrol warna hover icon
+            className={isLiked ? "text-red-500" : "icon-hover"}
           />
           <span className="text-sm">{likeCount}</span>
         </button>
 
-        <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[var(--color-primary)]/10 transition-colors group">
-          <MessageCircle size={20} className="group-hover:text-[var(--color-text-primary)]" />
+        {/* Comment Button */}
+        <button className="action-button group">
+          <MessageCircle size={20} className="icon-hover" />
           <span className="text-sm">{comments}</span>
         </button>
 
-        <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[var(--color-primary)]/10 transition-colors group">
-          <Share2 size={20} className="group-hover:text-[var(--color-text-primary)]" />
+        {/* Share Button */}
+        <button className="action-button group">
+          <Share2 size={20} className="icon-hover" />
           <span className="text-sm">{shares}</span>
         </button>
       </div>

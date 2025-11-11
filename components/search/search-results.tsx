@@ -1,5 +1,7 @@
 "use client"
 
+import { useState } from "react"
+
 interface SearchResult {
   id: string
   type: "user" | "post" | "hashtag"
@@ -18,6 +20,16 @@ interface SearchResultsProps {
 }
 
 export default function SearchResults({ results, isLoading }: SearchResultsProps) {
+    // State untuk melacak ID pengguna yang diikuti
+    const [followedUsers, setFollowedUsers] = useState<Record<string, boolean>>({}) 
+
+    const handleFollowToggle = (id: string) => {
+        setFollowedUsers(prev => ({
+            ...prev,
+            [id]: !prev[id]
+        }));
+    };
+
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -49,29 +61,44 @@ export default function SearchResults({ results, isLoading }: SearchResultsProps
 
   return (
     <div className="space-y-4">
-      {results.map((result) => (
-        <div
-          key={result.id}
-          className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg p-4 hover:border-[var(--color-primary)]/50 transition-colors cursor-pointer"
-        >
-          {result.type === "user" && (
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3 flex-1">
-                <img
-                  src={result.avatar || "/placeholder.svg"}
-                  alt={result.title}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div>
-                  <h3 className="font-bold">{result.title}</h3>
-                  <p className="text-sm text-[var(--color-text-tertiary)]">{result.description}</p>
+      {results.map((result) => {
+        const isFollowed = result.type === "user" ? !!followedUsers[result.id] : false;
+        
+        return (
+          <div
+            key={result.id}
+            // Menggunakan custom class search-result-card
+            className="search-result-card"
+          >
+            {result.type === "user" && (
+              // Mengganti flex items-center justify-between
+              <div className="flex justify-between" style={{ alignItems: 'center' }}>
+                {/* Menggunakan custom class search-user-info */}
+                <div className="search-user-info"> 
+                  <img
+                    src={result.avatar || "/placeholder.svg"}
+                    alt={result.title}
+                    // Menggunakan custom class search-user-avatar
+                    className="search-user-avatar" 
+                  />
+                  <div>
+                    <h3 className="font-bold">{result.title}</h3>
+                    <p className="text-sm text-[var(--color-text-tertiary)]">{result.description}</p>
+                  </div>
                 </div>
+                {/* IMPLEMENTASI LOGIC FOLLOW */}
+                <button 
+                    onClick={(e) => { 
+                        e.stopPropagation(); // Mencegah klik menyebar ke card
+                        handleFollowToggle(result.id);
+                    }}
+                    // Menggunakan custom class dan conditional styling
+                    className={`follow-button ${isFollowed ? 'is-following' : ''}`}
+                >
+                    {isFollowed ? 'Following' : 'Follow'}
+                </button>
               </div>
-              <button className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-dark)] transition-colors text-sm font-medium">
-                Follow
-              </button>
-            </div>
-          )}
+            )}
 
           {result.type === "post" && (
             <div>
@@ -93,7 +120,8 @@ export default function SearchResults({ results, isLoading }: SearchResultsProps
             </div>
           )}
         </div>
-      ))}
+        );
+      })}
     </div>
   )
 }
